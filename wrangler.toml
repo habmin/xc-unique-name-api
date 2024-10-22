@@ -1,4 +1,4 @@
-name = "xc-unique-name-gen"
+name = "xc-unique-name-api"
 compatibility_date = "2024-07-25"
 compatibility_flags = [ "nodejs_compat" ]
 
