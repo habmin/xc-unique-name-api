@@ -32,15 +32,16 @@ app.get('/', async (c) => {
   return c.json({ 
     epithet: epithet[0],
     name: name[0],
-    full_name: `${epithet[0].epithet} ${name[0].name}`
+    full_name: `${epithet[0].epithet} ${name[0].name}`,
+    createdAt: new Date()
    })
 })
 
-app.get('/custom_name/:custom_name', async (c) => {
+app.get('/:custom_name', async (c) => {
   const sqlClient = neon(c.env.DATABASE_URL)
   const db = drizzle(sqlClient);
 
-  const custom_name = c.req.param('custom_name');
+  const custom_name = c.req.param('custom_name').replace(/[&`<>\/\\'"]/g, '');
 
   const epithet = await db
     .select()
@@ -53,7 +54,8 @@ app.get('/custom_name/:custom_name', async (c) => {
   return c.json({ 
     epithet: epithet[0],
     name: {name: custom_name, source: "input"},
-    full_name: `${epithet[0].epithet} ${custom_name}`
+    full_name: `${epithet[0].epithet} ${custom_name}`,
+    createdAt: new Date()
    })
 })
 
