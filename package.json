@@ -5,7 +5,9 @@
     "deploy": "wrangler deploy --minify src/index.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:seed": "tsx seed.ts"
+    "db:seed": "tsx seed.ts",
+    "db:update": "tsx update.ts"
+    
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.9.3",

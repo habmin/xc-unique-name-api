@@ -3,13 +3,15 @@ import { neon } from '@neondatabase/serverless';
 import { drizzle} from  'drizzle-orm/neon-http';
 import { sql } from 'drizzle-orm'
 import { epithets, names, users } from './db/schema';
+import { prettyJSON } from 'hono/pretty-json'
 
 type Bindings = {
   DATABASE_URL: string;
 };
 
-
 const app = new Hono<{ Bindings: Bindings }>()
+
+app.use(prettyJSON());
 
 app.get('/', async (c) => {
   const sqlClient = neon(c.env.DATABASE_URL)
@@ -58,14 +60,5 @@ app.get('/:custom_name', async (c) => {
     createdAt: new Date()
    })
 })
-
-// app.get('/api/users', async (c) => {
-//   const sql = neon(c.env.DATABASE_URL)
-//   const db = drizzle(sql);
-
-//   return c.json({
-//     users: await db.select().from(users)
-//   })
-// })
 
 export default app

@@ -26,12 +26,14 @@ async function seed() {
 	// ]);
 	for (const epithet of monsters.epithets) {
 		await db.insert(epithets).values({
-			epithet: epithet,
+			epithet: epithet[0],
+			source: epithet[1],
 		});
 	}
 	for (const name of monsters.names) {
 		await db.insert(names).values({
-			name: name,
+			name: name[0],
+			source: name[1],
 		});
 	}
 }
