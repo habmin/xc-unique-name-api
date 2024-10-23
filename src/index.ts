@@ -1,6 +1,8 @@
 import { Hono } from 'hono';
 import { neon } from '@neondatabase/serverless';
 import { drizzle} from  'drizzle-orm/neon-http';
+import { instrument } from '@fiberplane/hono-otel';
+
 import { sql } from 'drizzle-orm'
 import { epithets, names, users } from './db/schema';
 import { prettyJSON } from 'hono/pretty-json'
@@ -61,4 +63,4 @@ app.get('/:custom_name', async (c) => {
    })
 })
 
-export default app
+export default instrument(app);
